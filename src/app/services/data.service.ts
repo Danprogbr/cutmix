@@ -18,7 +18,10 @@ export class DataService {
   public obterNf(pedido: string, cpfCnpj: string): Observable<Data> {
     const headers = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': '*/*',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Connection': 'keep-alive'
     });
 
     return this.httpService.post(
