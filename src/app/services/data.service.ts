@@ -26,8 +26,7 @@ export class DataService {
 
     return this.httpService.post(
       `https://cutmixrastreio.netlify.app/.netlify/functions/consulta-detalhes-nf?numeroPedido=${pedido}&cpfCnpj=${cpfCnpj}`,
-      {},
-      { headers: headers }
+      {}
     ).pipe(
       tap(() => console.log(`VV`)),
       map((res: any) => res.data)
