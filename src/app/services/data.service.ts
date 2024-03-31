@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Observable, tap} from "rxjs";
 import {NotaFiscal, Data} from "../services/nf.interface"
 
@@ -16,13 +16,18 @@ export class DataService {
 
 
   public obterNf(pedido: string, cpfCnpj: string): Observable<Data> {
-    console.log(`sss`)
+    const headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
+    });
+
     return this.httpService.post(
       `https://cutmixrastreio.netlify.app/.netlify/functions/consulta-detalhes-nf?numeroPedido=${pedido}&cpfCnpj=${cpfCnpj}`,
-      {}
+      {},
+      { headers: headers }
     ).pipe(
       tap(() => console.log(`VV`)),
       map((res: any) => res.data)
-    )
+    );
   }
 }
