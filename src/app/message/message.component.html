@@ -1,16 +1,42 @@
-<ion-item *ngIf="message" [routerLink]="'/message/' + message.id" [detail]="false">
-  <div slot="start" [class]="!message.read ? 'dot dot-unread' : 'dot'"></div>
-  <ion-label class="ion-text-wrap">
-    <h2>
-      {{ message.fromName }}
-      <span class="date">
-        <ion-note>{{ message.date }}</ion-note>
-        <ion-icon aria-hidden="true" name="chevron-forward" size="small" *ngIf="isIos()"></ion-icon>
-      </span>
-    </h2>
-    <h3>{{ message.subject }}</h3>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-  </ion-label>
-  </ion-item>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Login User
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header color="primary">
+      Login User can:
+    </ion-card-header>
+    <ion-card-content>
+      <ul>
+        <li>join a meeting</li>
+        <li>start a scheduled meeting</li>
+        <li>start an instant meeting</li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header color="primary">
+      Login
+    </ion-card-header>
+    <ion-card-content padding>
+      <p >Enter your Zoom username and password</p>
+      <ion-list >
+        <ion-item>
+          <ion-label position="stacked">Username</ion-label>
+          <ion-input type="text" ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input type="password" ></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button  expand="full">Login</ion-button>
+      <ion-button  expand="full">Logout</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

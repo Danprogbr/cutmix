@@ -1,0 +1,81 @@
+/* Estilos gerais */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+  margin: 0;
+}
+
+/* Estilos do card */
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 80%; // Largura padrão para desktop
+  max-width: 600px; // Largura máxima para mobile
+  @media (min-width: 768px) {
+    width: 60%; // Aumenta a largura para desktop
+  }
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.card-subtitle {
+  font-size: 16px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.input-group {
+  margin-top: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 0 10px; // Espaçamento menor nas laterais para mobile
+  }
+}
+
+.button {
+  padding-top: 20px;
+}
+
+.spiner {
+  text-align: center;
+}
+
+.data {
+  padding: 30px 24px 24px 24px;
+  span {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 900;
+  }
+}
+

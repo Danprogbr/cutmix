@@ -1,25 +1,51 @@
-import { Component, inject } from '@angular/core';
-import { RefresherCustomEvent } from '@ionic/angular';
-import { MessageComponent } from '../message/message.component';
-
-import { DataService, Message } from '../services/data.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {DataService} from "../services/data.service";
+import {LoadingController} from "@ionic/angular";
+import {Data} from "../services/nf.interface";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  private data = inject(DataService);
-  constructor() {}
+export class HomePage implements OnInit {
+  form!: FormGroup; // Using definite assignment assertion
+  isLoading = false;
+  data: any;
 
-  refresh(ev: any) {
-    setTimeout(() => {
-      (ev as RefresherCustomEvent).detail.complete();
-    }, 3000);
+  constructor(
+    private formBuilder: FormBuilder,
+    private dataService: DataService,
+    private loadingController: LoadingController
+  ) {
   }
 
-  getMessages(): Message[] {
-    return this.data.getMessages();
+  ngOnInit() {
+    this.form = this.formBuilder.group({
+      cpfCnpj: [
+        '',
+        [Validators.required, Validators.maxLength(2)],
+      ],
+      numeroPedido: ['', [Validators.required, Validators.maxLength(2)]],
+    });
   }
+
+  async pesquisar() {
+    this.data = undefined;
+    this.isLoading = true;
+    this.dataService.obterNf(`241`, ``).subscribe((res) => {
+        this.data = res;
+        this.isLoading = false;
+      }, error => {
+        this.isLoading = false;
+        console.error(error);
+      },
+      () => {
+        this.isLoading = false;
+      })
+  }
+
+
+
 }

@@ -1,25 +1,61 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Inbox
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
 
-<ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">
-        Inbox
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-list>
-    <app-message *ngFor="let message of getMessages()" [message]="message"></app-message>
-  </ion-list>
+
+
+  <div class="card" [formGroup]="form">
+
+    <div class="card-title">Central de Rastreamento de Pedidos</div>
+    <div class="card-subtitle">
+      Insira o número do seu pedido e sua identificação para fazermos o rastreamento no sistema.
+    </div>
+
+    <div class="input-group">
+      <ion-input
+        label="Digite seu CPF"
+        mask="000.000.000-00" maxLength="14"
+        label-placement="floating"
+        fill="solid"
+        formControlName="cpfCnpj"
+        type="number"
+      ></ion-input>
+    </div>
+
+    <div class="input-group">
+      <ion-input
+        label="Número do Pedido"
+        label-placement="floating"
+        fill="solid"
+        formControlName="numeroPedido"
+        type="number"
+      ></ion-input>
+    </div>
+
+
+    <div class="button">
+      <ion-button
+        expand="full"
+        color="dark"
+        [disabled]="!form.valid"
+        (click)="pesquisar()"
+        *ngIf="!isLoading"
+      >
+        <ion-icon slot="start" name="search"></ion-icon>
+        Rastrear Pedido
+      </ion-button>
+    </div>
+
+    <div class="spiner">
+      <ion-spinner *ngIf="isLoading"></ion-spinner>
+    </div>
+
+
+    <ion-card class="data" *ngIf="data?.numero">
+      <span>Nome do Cliente: <a>{{data?.contato?.nome}}</a></span>
+      <span>Número da NF: <a>{{data?.numero}}</a></span>
+      <span>Emitida em: <a>{{data?.dataEmissao}}</a></span>
+      <span><a [href]="data?.linkPDF" target="_blank">Baixar PDF</a></span>
+      <span><a [href]="data?.xml" target="_blank">Baixar XML</a></span>
+    </ion-card>
+  </div>
+
 </ion-content>
