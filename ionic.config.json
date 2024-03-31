@@ -1,0 +1,7 @@
+{
+  "name": "cutmix",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
