@@ -19,8 +19,6 @@ export class DataService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': '*/*',
-      'Accept-Encoding': 'gzip, deflate, br',
-      'Connection': 'keep-alive'
     });
 
     console.log(`chamada`);
