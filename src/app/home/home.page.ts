@@ -15,6 +15,7 @@ export class HomePage implements OnInit {
   isLoading = false;
   data: Data | undefined; // Definindo o tipo para a variável data
   error = '';
+  linkRastreio = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,8 +40,8 @@ export class HomePage implements OnInit {
     this.dataService.obterNf(this.form.get('numeroPedido')?.value, this.form.get('cpfCnpj')?.value)
       .subscribe(
         (res) => {
-          console.log(`retorno`, res);
           this.data = res;
+          this.linkRastreio = this.gerarLinkRastreio(res);
           this.isLoading = false;
         },
         (error) => {
@@ -59,5 +60,31 @@ export class HomePage implements OnInit {
       color: 'danger'
     });
     toast.present();
+  }
+
+  gerarLinkRastreio(data: Data): string {
+    if (data.transporte.transportador.nome === "TEX COURIER S.A") {
+      return `https://tracking.totalexpress.com.br/poupup_track.php?reid=26040&pedido=${data.transporte.volumes[0].id}&nfiscal=${data.numero}`;
+    } else if (data.transporte.transportador.nome === "TNT MERCURIO CARGAS E ENCOMENDAS EXPRESSAS LTDA.") {
+      return `https://radar.tntbrasil.com.br/radar/public/localizacaoSimplificada.do`;
+    } else if (data.transporte.transportador.nome === "REUNIDAS TRANSPA RODOVIARIA DE CARGAS S.A") {
+      return `https://ssw.inf.br/ssw_resultSSW.asp?cnpj=44655274000194&NR=${data.numero}`;
+    } else if (data.transporte.transportador.nome === "JOSE OSVALDO DE OLIVEIRA EIRELI") {
+      return `https://ssw.inf.br/ssw_resultSSW.asp?cnpj=44655274000194&NR=${data.numero}`;
+    } else if (data.transporte.transportador.nome === "VITÓRIA PROVEDORA LOGÍSTICA LTDA") {
+      return `https://ssw.inf.br/ssw_resultSSW.asp?cnpj=44655274000194&NR=${data.numero}`;
+    } else if (data.transporte.transportador.nome === "MIRA OTM TRANSPORTES LTDA") {
+      return `https://web.mira.com.br/webmira/portalmira/(S(3kwmu0jtsl4ty53tl0nuw5rq))/default.aspx`;
+    } else if (data.transporte.transportador.nome === "PATRUS TRANSPORTES LTDA") {
+      `https://portal.patrus.com.br/tracking/cli/e/Tracking/Info.aspx/cli/e/Tracking/Info.aspx?CGC=44.655.274%2f0001-94&NF=${data.numero}&TIPO=R`;
+    } else if (data.transporte.transportador.nome === "VELOG EXPRESS LTDA") {
+      return `https://www.postexexpress.com.br/rastreamento`;
+    } else if (data.transporte.transportador.nome === "DISK & TENHA LTDA") {
+      return `https://disktenha.com.br/`;
+    } else if (data.transporte.transportador.nome === "TECMAR TRANSPORTES LTDA.") {
+      return `https://tecmartransportes.com.br`;
+    } else if (data.transporte.transportador.nome === "POSTAL MOV BR MARKETPLACE E LOGISTICA LTDA") {
+      `https://postalmovbr.com`;
+    }
   }
 }
