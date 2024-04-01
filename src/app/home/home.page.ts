@@ -62,7 +62,7 @@ export class HomePage implements OnInit {
     toast.present();
   }
 
-  gerarLinkRastreio(data: Data): string {
+  gerarLinkRastreio(data: Data) {
     if (data.transporte.transportador.nome === "TEX COURIER S.A") {
       return `https://tracking.totalexpress.com.br/poupup_track.php?reid=26040&pedido=${data.transporte.volumes[0].id}&nfiscal=${data.numero}`;
     } else if (data.transporte.transportador.nome === "TNT MERCURIO CARGAS E ENCOMENDAS EXPRESSAS LTDA.") {
